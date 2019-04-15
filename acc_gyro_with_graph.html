@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Sensor data  </title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+    <!-- <script>
+      window.onload = function()
+      {
+        // var startBtn = document.getElementById("btn");
+        // startBtn.addEventListener("click", start);
+        var startBtn = document.getElementById("btn");
+        startBtn.addEventListener("click", testbtn(this));
+        // var stopBtn = document.getElementById("btn1");
+        // stopBtn.addEventListener("click", stop);
+         // var plotBtn = document.getElementById("btn2");
+         // plotBtn.addEventListener("click", plot);
+      }
+    </script> -->
+
+    <!-- <script type="text/javascript">
+      //var enable = true;
+      var gyroPresent;
+      var xAcc,yAcc,zAcc;
+      var xG,yG,zG;
+      var arr_xG = [];
+      var arr_yG = [];
+      var arr_zG = [];
+      var arr_xAcc = [];
+      var arr_yAcc = [];
+      var arr_zAcc = [];
+      var arr_lbl = [];
+      var arr_lbl1 = [];
+
+      var obj_xAcc = {};
+      var obj_yAcc = {};
+      var obj_zAcc = {};
+      var obj_xG = {};
+      var obj_yG = {};
+      var obj_zG = {};
+      var obj = {};
+
+
+      var i = 0;
+      var count1 = 1;
+      var bool = true;
+      //var myJSON;
+
+      var ctx;
+
+      window.onload = function()
+      {
+        // var startBtn = document.getElementById("btn");
+        // startBtn.addEventListener("click", start);
+        var startBtn = document.getElementById("btn");
+        startBtn.addEventListener("click", testbtn);
+        // var stopBtn = document.getElementById("btn1");
+        // stopBtn.addEventListener("click", stop);
+         // var plotBtn = document.getElementById("btn2");
+         // plotBtn.addEventListener("click", plot);
+      }
+
+
+      function testbtn(){
+        for(i = 0; i<3; j++){
+          if(count1 == 1){
+            start();
+            count1 = 2;
+          }
+          else if(count1 == 2) {
+            stop();
+            count1 = 1;
+          }
+        }
+      }
+
+          function start()
+          {
+            ///////////gyro///////
+            if (window.DeviceOrientationEvent && bool == true)
+            {
+
+                window.addEventListener("deviceorientation", processGyro);
+            }
+            else
+            {
+              //console.log("DeviceMotionEvent is not supported");
+              alert("DeviceOrientation is not supported");
+            }
+
+          //  alert("Code worked");
+            /////////////////////////Accelerometer////////////////
+            if(window.DeviceMotionEvent &&  bool == true)
+            {
+            window.addEventListener("devicemotion", motion);
+            }
+            else
+            {
+              //console.log("DeviceMotionEvent is not supported");
+              alert("DeviceMotionEvent is not supported");
+            }
+            console.clear();
+
+          }
+        //}
+        function processGyro(event)
+        {
+          if (bool == true) {
+          xG =document.getElementById("alpha").innerHTML=event.alpha;
+          yG =document.getElementById("beta").innerHTML=event.beta;
+          zG =document.getElementById("gamma").innerHTML =event.gamma;
+
+          arr_xG.push(xG);
+          arr_yG.push(yG);
+          arr_zG.push(zG);
+          // console.log(arr_xG);
+        }
+        }
+
+      function motion(event)
+      {
+        if (bool == true) {
+          xAcc = document.getElementById("X").innerHTML=event.accelerationIncludingGravity.x;
+          yAcc = document.getElementById("Y").innerHTML=event.accelerationIncludingGravity.y;
+          zAcc = document.getElementById("Z").innerHTML =event.accelerationIncludingGravity.z;
+
+
+          arr_xAcc.push(xAcc);
+          arr_yAcc.push(yAcc);
+          arr_zAcc.push(zAcc);
+        }
+      }
+
+        function stop()
+        {
+          bool = false;
+
+          //alert (document.getElementById("alpha").innerHTML);
+
+          document.getElementById("alpha").innerHTML="";
+          document.getElementById("beta").innerHTML="";
+          document.getElementById("gamma").innerHTML ="";
+          document.getElementById("X").innerHTML="";
+          document.getElementById("Y").innerHTML="";
+          document.getElementById("Z").innerHTML ="";
+          //console.log(x);
+
+          // console.log("array of xG: ",arr_xG);
+          // console.log("array of yG: ",arr_yG);
+          // console.log("array of zG: ",arr_zG);
+          // console.log("array of xAcc: ",arr_xAcc);
+          // console.log("array of yAcc: ",arr_yAcc);
+          // console.log("array of zAcc: ",arr_zAcc);
+
+          // JSON.stringify(arr_xAcc);
+          // console.log(JSON.stringify(arr_xAcc));
+          //arr_lbl = arr_xG.length;
+
+          for(i=0;i<arr_xAcc.length;i++)
+          {
+            arr_lbl.push(i);
+          }
+
+          for(i=0;i<arr_xG.length;i++)
+          {
+            arr_lbl1.push(i);
+          }
+          //console.log(arr_lbl);
+
+
+          // for(i=0;i<arr_xAcc.length;i++){
+          //   arr_xAcc[i]="{x:" + arr_xAcc[i] + "}";
+          // }
+          // console.log(arr_xAcc);
+
+          //JSON.stringify(arr_x);
+          //console.log(myJSON);
+
+          //window.removeEventListener("devicemotion", motion);
+          //window.removeEventListener("DeviceOrientationEvent",processGyro);
+
+          arr_xAcc.forEach(function(value, idx) {
+            obj_xAcc[idx] = value
+          });
+          //console.log("arr_xAcc: ",obj)
+          arr_yAcc.forEach(function(value, idx) {
+            obj_yAcc[idx] = value
+          });
+          arr_zAcc.forEach(function(value, idx) {
+            obj_zAcc[idx] = value
+          });
+          arr_xG.forEach(function(value, idx) {
+            obj_xG[idx] = value
+          });
+          arr_yG.forEach(function(value, idx) {
+            obj_yG[idx] = value
+          });
+          arr_zG.forEach(function(value, idx) {
+            obj_zG[idx] = value
+          });
+
+          obj['xG'] = obj_xG;
+          obj['yG'] = obj_yG;
+          obj['zG'] = obj_zG;
+          obj['xAcc'] = obj_xAcc;
+          obj['yAcc'] = obj_yAcc;
+          obj['zAcc'] = obj_zAcc;
+          obj['lbl'] = arr_lbl;
+          obj['lbl1'] = arr_lbl1;
+
+          console.log(obj);
+          send();
+
+        }
+
+
+
+        ////////plot//////////
+      //   ////working plot function//
+      // function plot(){
+      //   var trace1 = {
+      //     x:arr_xG,
+      //     y:arr_yG,
+      //     z:arr_zG,
+      //   // x: [1, 2, 3, 4, 5],
+      //   // y: [10, 15, 13, 17],
+      //   type: 'line'
+      // };
+      //
+      // var trace2 = {
+      //   x: arr_xAcc,
+      //   y: arr_yAcc,
+      //   z: arr_zAcc,
+      //   // x: [1, 2, 3, 4],
+      //   // y: [16, 5, 11, 9],
+      //   type: 'line'
+      // };
+      // var data1 = [trace1];
+      // var data2 = [trace2];
+      //
+      // Plotly.newPlot('chartContainer1', data1);
+      // Plotly.newPlot('chartContainer2', data2);
+      // }
+      ////working function ends//////////
+
+        function plot(){
+          Gplot();
+          Aplot();
+        }
+
+        function Gplot()
+        {
+          var data = {
+            labels:arr_lbl,
+              //labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+              datasets: [
+                  {
+                      label: "Gyroscope X axis",
+                      //fillColor: "rgba(220,220,220,0.2)",
+                      strokeColor: "rgba(220,220,220,1)",
+                      pointColor: "rgba(220,220,220,1)",
+                      pointStrokeColor: "#fff",
+                      pointHighlightFill: "#fff",
+                      pointHighlightStroke: "rgba(220,220,220,1)",
+                      data:obj_xG
+                      //data: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+                  },
+                  {
+                      label: "Gyroscope Y axis",
+                      //fillColor: "rgba(151,187,205,0.2)",
+                      strokeColor: "rgba(151,187,205,1)",
+                      pointColor: "rgba(151,187,205,1)",
+                      pointStrokeColor: "#fff",
+                      pointHighlightFill: "#fff",
+                      pointHighlightStroke: "rgba(151,187,205,1)",
+                      data:obj_yG
+                      //data: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+                  },
+                  {
+                      label: "Gyroscope Z axis",
+                      //fillColor: "rgba(151,187,205,0.2)",
+                      strokeColor: "rgba(151,187,205,1)",
+                      pointColor: "rgba(151,187,205,1)",
+                      pointStrokeColor: "#fff",
+                      pointHighlightFill: "#fff",
+                      pointHighlightStroke: "rgba(151,187,205,1)",
+                      data:obj_zG
+                      //data: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+                  }
+              ]
+          };
+          var ctx = document.getElementById("lineChart").getContext("2d");
+          var options = { };
+          var lineChart = new Chart(ctx).Line(data, options);
+
+        }
+        function Aplot()
+        {
+          var data = {
+            labels:arr_lbl,
+              //labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+              datasets: [
+                  {
+                      label: "Acc X axis",
+                      //fillColor: "rgba(220,220,220,0.2)",
+                      strokeColor: "rgba(220,220,220,1)",
+                      pointColor: "rgba(220,220,220,1)",
+                      pointStrokeColor: "#fff",
+                      pointHighlightFill: "#fff",
+                      pointHighlightStroke: "rgba(220,220,220,1)",
+                      data: obj_xAcc
+                      //data:arr_xAcc
+                      //data: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+                  },
+                  {
+                      label: "Acc Y axis",
+                      //fillColor: "rgba(151,187,205,0.2)",
+                      strokeColor: "rgba(151,187,205,1)",
+                      pointColor: "rgba(151,187,205,1)",
+                      pointStrokeColor: "#fff",
+                      pointHighlightFill: "#fff",
+                      pointHighlightStroke: "rgba(151,187,205,1)",
+                      data:obj_yAcc
+                      //data: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+                  },
+                  {
+                      label: "Acc Z axis",
+                      //fillColor: "rgba(151,187,205,0.2)",
+                      strokeColor: "rgba(151,187,205,1)",
+                      pointColor: "rgba(151,187,205,1)",
+                      pointStrokeColor: "#fff",
+                      pointHighlightFill: "#fff",
+                      pointHighlightStroke: "rgba(151,187,205,1)",
+                      data:obj_zAcc
+                      //data: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+                  }
+              ]
+          };
+          var ctx = document.getElementById("lineChart1").getContext("2d");
+          var options = { };
+          var lineChart = new Chart(ctx).Line(data, options);
+
+        }
+
+
+        ////////////////////
+
+        function send(){
+          var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+          xmlhttp.open("POST", "http://172.16.67.60:8891/sensordata");
+          xmlhttp.setRequestHeader("Content-Type", "application/json");
+          xmlhttp.send(JSON.stringify(obj));
+
+          //xmlhttp.send(JSON.stringify({name:"John Rambo", time:"2pm"}));
+        }
+
+    </script> -->
+
+  </head>
+  <body>
+    <h1>Sensor Data Readings</h1>
+    <button type="button" id = "btn" onclick="testbtn();" style="font-size:60px;height:400px;width:900px">Start Service</button>
+    <p> </p>
+    <!-- <button type="button" id = "btn1" style="font-size:60px;height:400px;width:900px" >Stop Service</button> -->
+    <!-- <button type="button" id = "btn2" style="height:30px;width:100px"> Plot Graph</button> -->
+    <p> Gyroscope readings: </p>
+    alpha :<span id="alpha"></span><br>
+    beta :<span id="beta"></span><br>
+    gamma :<span id="gamma"></span><br>
+    <p> Accelerometer readings: </p>
+    x-axis :<span id="X"></span><br>
+    Y-axis :<span id="Y"></span><br>
+    z-axis :<span id="Z"></span><br>
+    <!--
+    <p> Gyroscope graph</p>
+    <div id="chartContainer1" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
+    <p> Accelerometer graph</p>
+    <div id="chartContainer2" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
+  -->
+
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <canvas id="line-chart" width="800" height="450"></canvas>
+  -->
+    <!-- <canvas id="lineChart" height="450" width="1200"></canvas>
+    <canvas id="lineChart1" height="450" width="1200"></canvas> -->
+    <script type="text/javascript" src="/Applications/MAMP/htdocs/Atom/thesis/MicSensor/js/accelerometer.js"></script>
+    <div id = "output"></div>
+  </body>
+</html>
