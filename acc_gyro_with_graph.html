@@ -7,9 +7,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 
   </head>
+  <script>
+    window.onload = function()
+{
+  // var startBtn = document.getElementById("btn");
+  // startBtn.addEventListener("click", startreading);
+  // var stopBtn = document.getElementById("btn1");
+  // stopBtn.addEventListener("click", stopreading);
+  // startreading();
+  // stopreading();
+  var Btn = document.getElementById("btn");
+  Btn.addEventListener("click", testbtn);
+}
+  </script>
   <body>
     <h1>Sensor Data Readings</h1>
-    <button type="button" id = "btn" onclick="testbtn();" style="font-size:60px;height:400px;width:900px">Start Service</button>
+<!--     <button type="button" id = "btn" onclick="testbtn();" style="font-size:60px;height:400px;width:900px">Start Service</button> -->
     <p> </p>
     <!-- <button type="button" id = "btn1" style="font-size:60px;height:400px;width:900px" >Stop Service</button> -->
     <!-- <button type="button" id = "btn2" style="height:30px;width:100px"> Plot Graph</button> -->
