@@ -147,7 +147,7 @@ function motion(event)
   }
   function send_acc(){
     var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-    xmlhttp.open("POST", "http://172.16.67.60:8891/sensordata");
+    xmlhttp.open("POST", "http://localhost/sensordata");
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.send(JSON.stringify(obj));
   }
