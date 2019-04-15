@@ -18,17 +18,7 @@ var obj = {};
 var i = 0;
 var count1 = 0;
 var bool = true;
-window.onload = function()
-{
-  // var startBtn = document.getElementById("btn");
-  // startBtn.addEventListener("click", startreading);
-  // var stopBtn = document.getElementById("btn1");
-  // stopBtn.addEventListener("click", stopreading);
-  // startreading();
-  // stopreading();
-  var startBtn = document.getElementById("btn");
-  stopBtn.addEventListener("click", testbtn);
-}
+
 
 // function testbtn(){
 //   if(bool == true){
@@ -52,7 +42,7 @@ function testbtn(){
     }
   }
 }
-function startreading()
+function start()
 {
   ///////////gyro///////
   if (window.DeviceOrientationEvent && bool == true)
@@ -108,7 +98,7 @@ function motion(event)
     arr_zAcc.push(zAcc);
     }
   }
-  function stopreading()
+  function stop()
   {
     bool = false;
     document.getElementById("alpha").innerHTML="";
